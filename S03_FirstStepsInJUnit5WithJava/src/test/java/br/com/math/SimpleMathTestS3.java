@@ -1,18 +1,17 @@
 package br.com.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Test Math Operations in SimpleMath Class")
-class SimpleMathTest {
+class SimpleMathTestS3 {
 
 	SimpleMath math;
 
@@ -64,8 +63,9 @@ class SimpleMathTest {
 
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
-		Double actual = math.subtraction(firstNumber, secondNumber);
 		double expected = 4.2D;
+
+		Double actual = math.subtraction(firstNumber, secondNumber);
 
 		assertEquals(expected, actual, () -> firstNumber + " - " + secondNumber + " did not produce " + expected + "!");
 
@@ -79,8 +79,9 @@ class SimpleMathTest {
 
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
-		Double actual = math.multiplication(firstNumber, secondNumber);
 		double expected = 12.4D;
+
+		Double actual = math.multiplication(firstNumber, secondNumber);
 
 		assertEquals(expected, actual, () -> firstNumber + " * " + secondNumber + " did not produce " + expected + "!");
 
@@ -94,19 +95,33 @@ class SimpleMathTest {
 
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
-		Double actual = math.division(firstNumber, secondNumber);
 		double expected = 3.1D;
+
+		Double actual = math.division(firstNumber, secondNumber);
 
 		assertEquals(expected, actual, () -> firstNumber + " / " + secondNumber + " did not produce " + expected + "!");
 
 	}
 
-	@Disabled("TODO: We still need to work on it!")
+	// @Disabled("TODO: We still need to work on it!")
 	@Test
 	@DisplayName("Test Division by Zero")
 	void testDivision_WhenFirstNumberIsDividedByZero_ShouldThrowArithmeticException() {
+
 		System.out.println("Test Division by Zero");
-		fail();
+
+		// Given
+		double firstNumber = 6.2D;
+		double secondNumber = 0D;
+		
+		var expectedMessage = "Impossible to divide by zero!";
+
+		ArithmeticException actual = assertThrows(ArithmeticException.class, () -> {
+			// When & Then
+			math.division(firstNumber, secondNumber);
+		}, () -> "Division by zero should throw an Arithmetic Exception");
+		
+		assertEquals(expectedMessage, actual.getMessage(), () -> "Unexpected exception message!");
 	}
 
 	@Test
@@ -117,8 +132,9 @@ class SimpleMathTest {
 
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
-		Double actual = math.mean(firstNumber, secondNumber);
 		double expected = 4.1D;
+
+		Double actual = math.mean(firstNumber, secondNumber);
 
 		assertEquals(expected, actual,
 				() -> "(" + firstNumber + " + " + secondNumber + ") / 2 did not produce " + expected + "!");
@@ -133,6 +149,7 @@ class SimpleMathTest {
 
 		double number = 81D;
 		double expected = 9D;
+
 		Double actual = math.squareRoot(number);
 
 		assertEquals(expected, actual, () -> "Square root of " + number + " did not produce " + expected + "!");
